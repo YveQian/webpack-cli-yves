@@ -1,0 +1,15 @@
+@font-face {
+  font-family: "heiti";
+  src: url("../fonts/heiti.ttf");
+}
+body {
+  height: 100%;
+  width: 100%;
+  font-family: heiti;
+
+  > div {
+    height: 700px;
+    width: 100%;
+    background: url("../images/test2.jpg");
+  }
+}
