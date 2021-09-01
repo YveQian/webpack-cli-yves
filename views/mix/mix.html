@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= header %></title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/mix.css">
+</head>
+<body>
+    <div id="MixPage">
+        <%content.forEach(e=>{%>
+
+            <% if(e.title_img_cos_key) {%>
+                <li >
+                    <h2 attr-tamplate= <%= e.article_id%>>
+                        <%= e.title %>
+                    </h2>
+                    <div>
+                        <%- e.content %>
+                    </div>
+                </li>
+            <%} else {%>
+                <li >
+                    <h2 attr-tamplate= <%= e.question_id%>>
+                        <%= e.title %>
+                    </h2>
+                    <div>
+                        <%- e.detail %>
+                    </div>
+                </li>
+            <% } %>
+    
+        <%})%>
+    </div>
+    <script>
+
+    </script>
+    <script src="/js/jq.min.js"></script>
+    <script src="/js/request2.js"></script>
+    <script>
+        var array = []
+        var off_set_pages = `<%- JSON.stringify(off_set)%>`;
+        var timeout = null;
+        var data = {
+            scrollTop:0
+        }
+        // console.log(hehe)
+        $('#MixPage li h2').on('click',(e)=>{
+            let that = e.target;
+            let id = $(that).attr('attr-tamplate');
+            console.log($(that).attr('attr-tamplate'))
+            window.open (`/detail/${id}`)
+            // console.log('dianji')
+        })
+        console.log(document.body)
+        window.onload = function(){
+            console.log('onload')
+            console.log($('#MixPage'))
+            window.addEventListener('scroll', function(){
+                if(timeout !== null) clearTimeout(timeout);
+                timeout = setTimeout(function() {
+                    data.scrollTop = this.scrollY;
+                }.bind(this), 500);
+                })
+        }
+        Object.defineProperty(data,'scrollTop',{
+            get:function() {
+            return data
+            },
+            set: function(value) {
+            console.log(value); //value是 data改变后的值
+                MixPage(value,off_set_pages)
+            }
+        })
+    </script>
+     <%- js %>
+</body>
+</html>

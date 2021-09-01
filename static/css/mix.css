@@ -1,0 +1,21 @@
+#MixPage {
+  margin: 0 auto;
+  width: 730px;
+  background: white;
+  padding: 20px;
+  box-sizing: border-box;
+}
+#MixPage h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+#MixPage li {
+  min-height: 100px;
+  border-bottom: 1px solid #dcdcdc;
+  margin-bottom: 20px;
+}
+#MixPage img {
+  max-width: 100%;
+}

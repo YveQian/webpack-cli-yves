@@ -15,4 +15,3 @@ export default function getData(){
         console.log(res)
     })
 }
-// exports = {getData}

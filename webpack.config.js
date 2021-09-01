@@ -23,8 +23,8 @@ Object.keys(entrys).forEach(element => {
       }
     ))
 });
-
-module.exports = {
+const clientConfig = {
+    target:'web',
     mode:'none',
     entry: entrys,
     output:{
@@ -108,11 +108,6 @@ module.exports = {
         ]
     }
     ,
-    // resolve:{
-    //   alias: {
-    //     'jquery': 'jquery/dist/jquery.min.js'
-    // }
-    // },
     devServer: {
       compress:true,
       host:'0.0.0.0',
@@ -128,3 +123,5 @@ module.exports = {
       }
     }
 }
+
+module.exports = [clientConfig]
