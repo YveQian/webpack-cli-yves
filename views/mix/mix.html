@@ -39,42 +39,61 @@
     </script>
     <script src="/js/jq.min.js"></script>
     <script src="/js/request2.js"></script>
+    <%- js %>
     <script>
         var array = []
         var off_set_pages = `<%- JSON.stringify(off_set)%>`;
         var timeout = null;
         var data = {
-            scrollTop:0
+            scrollTop:0,
+            isRequest:false,
+            count:0
         }
-        // console.log(hehe)
+        function Page(index){
+            return index
+        }
+        var mixPage = new Page(MixPage_index)
         $('#MixPage li h2').on('click',(e)=>{
             let that = e.target;
             let id = $(that).attr('attr-tamplate');
-            console.log($(that).attr('attr-tamplate'))
-            window.open (`/detail/${id}`)
-            // console.log('dianji')
+            // console.log($(that).attr('attr-tamplate'))
+            window.open (`/detail/${id}`);
         })
         console.log(document.body)
         window.onload = function(){
-            console.log('onload')
-            console.log($('#MixPage'))
             window.addEventListener('scroll', function(){
                 if(timeout !== null) clearTimeout(timeout);
                 timeout = setTimeout(function() {
                     data.scrollTop = this.scrollY;
                 }.bind(this), 500);
-                })
+            })
         }
         Object.defineProperty(data,'scrollTop',{
             get:function() {
-            return data
+                return data
             },
             set: function(value) {
-            console.log(value); //value是 data改变后的值
-                MixPage(value,off_set_pages)
+                console.log(value)
+                if(data.count < 1){
+                    console.log(mixPage.data,'first')
+                    mixPage.MixPage('init',off_set_pages)
+                    data.count++;
+                }else{
+                    let Height_ = $('#MixPage').height()
+                    if(Height_ - value < 2000){
+                        data.isRequest = true;
+                        console.log(mixPage.data,'sec')
+                        mixPage.MixPage('sec');
+                        
+                    }else{
+                        data.isRequest = false;
+                    }
+                }
+                
+
             }
         })
     </script>
-     <%- js %>
+    
 </body>
 </html>

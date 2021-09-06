@@ -1,16 +1,19 @@
-const compose = require('koa-compose')
-const glob = require('glob')
-const { resolve } = require('path')
+const Router = require("koa-router");
+import mix from "../controller/mix";
+import detail from "../controller/detail";
+// console.log(process.env.NODE_ENV, "routes??????????????");
+const appRouters = (app) => {
+  const router = new Router({
+    // prefix: '/test'
+  });
+  var get_search_data = require("../static/js/request.js");
+  router.get("/detail/:id", detail);
+  router.get("/mix", mix);
 
-registerRouter = () => {
-    let routers = [];
-    glob.sync(resolve(__dirname, './', '**/*.js'))
-        .filter(value => (value.indexOf('index.js') === -1))
-        .map(router => {
-            routers.push(require(router).routes())
-            routers.push(require(router).allowedMethods())
-        })
-    return compose(routers)
-}
+  app.use(router.routes());
 
-module.exports = registerRouter
+  app.use(router.allowedMethods());
+  return router;
+};
+// module.exports = appRouters;
+export default appRouters;

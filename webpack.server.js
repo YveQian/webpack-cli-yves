@@ -1,58 +1,50 @@
-const webpack = require('webpack');
-const HtmlwebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const path = require('path');
-let externals = _externals();
+const webpack = require("webpack");
+const HtmlwebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const path = require("path");
+
+const _externals = require("externals-dependencies");
 
 module.exports = {
-    mode:'production',
-    entry: {server: './server.js',},
-    target: 'node',
-    output: {
-        path: path.resolve(__dirname,'build'),filename: '[name].js'
-    },
-    resolve: {
-        extensions: ['','.js']
+  mode: "production",
+  entry: { server: "./server/server.js" },
+  target: "node",
+  output: {
+    path: path.resolve(__dirname, "build"),
+    filename: "[name].js",
+    // libraryTarget: "commonjs2",
+  },
+  resolve: {
+    extensions: ["", ".js"],
+  },
+  node: {
+    __dirname: true,
+  },
+  externals: _externals(),
+  module: {
+    rules: [
+      {
+        test: /\.js$/i,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            plugins: ["@babel/plugin-transform-runtime"],
+          },
+        },
+      },
+    ],
+  },
+  plugins: [
+    new CleanWebpackPlugin(),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: "./views", to: "views" },
+        { from: "./static", to: "static" },
+      ],
+    }),
 
-    },
-    externals: externals,
-    module: {
-    // loaders: [
-
-    // {
-    // test: /.js$/,loader: 'babel',exclude: /node_modules/
-
-    // }
-
-    // ]
-
-    },
-    plugins: [
-        new CleanWebpackPlugin(),
-        new CopyWebpackPlugin({
-            patterns: [
-            { from: './views', to: 'views' }
-            ],
-        }),
     // new webpack.optimize.UglifyJsPlugin()
-
-    ]
-
+  ],
 };
-
-function _externals() {
-    let manifest = require('./package.json');
-
-    let dependencies = manifest.dependencies;
-
-    let externals = {};
-
-    for (let p in dependencies) {
-    externals[p] = 'commonjs ' + p;
-
-    }
-
-    return externals;
-
-}
