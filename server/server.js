@@ -18,9 +18,18 @@ import appRouters from "./routes";
 const app = new Koa();
 const router = new Router();
 const koastatic = require("koa-static");
-const staticPath = "./static";
+const staticPath =
+  process.env.NODE_ENV == "production" ? "../static" : "./static";
+// console.log(path.join(__dirname, staticPath), "??");
+const viewsPath =
+  process.env.NODE_ENV == "production" ? ".build/../views" : "./server/views";
 app.use(koastatic(path.join(__dirname, staticPath)));
 
+app.use(
+  views(viewsPath, {
+    map: { html: "ejs" },
+  })
+);
 //配置路由
 router.get("/", async (ctx) => {
   ctx.body = "首页"; //返回数据  原生里面的res.send()
@@ -73,11 +82,7 @@ router.get("/news", (ctx) => {
     ctx_querystring,
   };
 });
-app.use(
-  views("views", {
-    map: { html: "ejs" },
-  })
-);
+
 //写一个中间件配置公共的信息
 app.use(async (ctx, next) => {
   ctx.state.userinfo = "张三";

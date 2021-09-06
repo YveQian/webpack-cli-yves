@@ -8,7 +8,7 @@ const _externals = require("externals-dependencies");
 
 module.exports = {
   mode: "production",
-  entry: { server: "./server.js" },
+  entry: { server: "./server/server.js" },
   target: "node",
   output: {
     path: path.resolve(__dirname, "build"),
@@ -40,8 +40,8 @@ module.exports = {
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
-        { from: "./views", to: "views" },
-        { from: "./static", to: "static" },
+        { from: "./server/views", to: "views" },
+        { from: "./server/static", to: "static" },
       ],
     }),
 
