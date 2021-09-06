@@ -8,7 +8,7 @@ const _externals = require("externals-dependencies");
 
 module.exports = {
   mode: "production",
-  entry: { server: "./server/server.js" },
+  entry: { server: "./server.js" },
   target: "node",
   output: {
     path: path.resolve(__dirname, "build"),
