@@ -7,7 +7,6 @@ const path = require("path");
 const _externals = require("externals-dependencies");
 
 module.exports = {
-  mode: "production",
   entry: { server: "./server/server.js" },
   target: "node",
   output: {
@@ -44,7 +43,6 @@ module.exports = {
         { from: "./server/static", to: "static" },
       ],
     }),
-
     // new webpack.optimize.UglifyJsPlugin()
   ],
 };

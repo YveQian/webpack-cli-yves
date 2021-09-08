@@ -20,13 +20,14 @@ const router = new Router();
 const koastatic = require("koa-static");
 const staticPath =
   process.env.NODE_ENV == "production" ? "../static" : "./static";
-// console.log(path.join(__dirname, staticPath), "??");
+
 const viewsPath =
-  process.env.NODE_ENV == "production" ? ".build/../views" : "./server/views";
+  process.env.NODE_ENV == "production" ? "../../build/views" : "./views";
+
 app.use(koastatic(path.join(__dirname, staticPath)));
 
 app.use(
-  views(viewsPath, {
+  views(path.join(__dirname, viewsPath), {
     map: { html: "ejs" },
   })
 );

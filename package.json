@@ -5,10 +5,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
-    "build2": "webpack --config webpack.server.js",
+    "build2": "webpack --mode=production --config webpack.server.js",
+    "build3": "webpack  --mode=development --config webpack.server.js",
     "dev": "cross-env NODE_ENV=production webpack serve  --compress",
     "server": "cross-env NODE_ENV=development nodemon --exec babel-node ./server/server.js ",
     "go": "node ./build/server.js"
+  },
+  "bin":"./build/server.js",
+  "pkg": {
+    "assets": ["build/views/**/*.html","build/static/**/*"]
+    
   },
   "author": "",
   "license": "ISC",
