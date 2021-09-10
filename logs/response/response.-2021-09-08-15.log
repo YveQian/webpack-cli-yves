@@ -1,0 +1,13 @@
+[2021-09-08T15:21:21.338] [INFO] resLogger - 
+*************** response log start ***************
+request method: POST
+request originalUrl:  /api/content/mix/list
+request client ip:  ::ffff:192.168.1.200
+request body: 
+undefined
+response time: 266
+response status: 200
+response body: 
+undefined
+*************** response log end ***************
+
