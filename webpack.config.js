@@ -45,6 +45,7 @@ const clientConfig = {
         use: ["simpleLoader", "babel-loader", "eslint-loader"],
         include: __dirname + "src",
       },
+      { test: /\.ts$/,exclude:/node_modules/,use:['ts-loader']},
       // {
       //   test: /\.js$/i,
       //   use: ["ignore-console-log-loader"],
